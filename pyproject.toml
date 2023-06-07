@@ -7,13 +7,22 @@ readme = "README.md"
 packages = [{include = "currency_converter"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
+fastapi = "^0.96.0"
+hypercorn = "^0.14.3"
+loguru = "^0.7.0"
+orjson = "^3.9.0"
+python-dotenv = "^1.0.0"
+uvloop = "^0.17.0"
 
 
 [tool.poetry.group.test.dependencies]
 pytest = "*"
 parameterized = "*"
 pytest-cov = "*"
+asgi-lifespan = "*"
+alt-pytest-asyncio = "*"
+httpx = "*"
 
 
 [tool.poetry.group.lint.dependencies]
