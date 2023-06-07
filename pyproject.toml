@@ -1,0 +1,69 @@
+[tool.poetry]
+name = "currency-converter"
+version = "0.1.0"
+description = ""
+authors = ["Ivar Carrera <ivar.carrera@outlook.com>"]
+readme = "README.md"
+packages = [{include = "currency_converter"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+parameterized = "*"
+pytest-cov = "*"
+
+
+[tool.poetry.group.lint.dependencies]
+blue = "*"
+isort = "*"
+ruff = "*"
+pip-audit = "*"
+mypy = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.blue]
+line-length = 100
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.ruff]
+line-length = 100
+select = [
+    "ARG",
+    "B",
+    "C4",
+    "E",
+    "ERA",
+    "F",
+    "N",
+    "PLC",
+    "PLE",
+    "PLR",
+    "PLW",
+    "RET",
+    "S",
+    "T10",
+    "UP",
+    "W",
+]
+ignore = ["B008"]
+target-version = "py311"
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+"test/**" = ["ARG", "PLR2004", "S"]
+
+[tool.mypy]
+ignore_missing_imports = true
+disallow_untyped_defs = true
