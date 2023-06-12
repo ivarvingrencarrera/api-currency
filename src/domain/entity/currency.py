@@ -11,3 +11,6 @@ class Currency:
 
     def __str__(self) -> str:
         return f'{self.alphabetic_code} - {self.name}'
+
+    def __repr__(self) -> str:
+        return f"Currency(id='{self.id}', alphabetic_code='{self.alphabetic_code}', numeric_code={self.numeric_code}, name='{self.name}', symbol='{self.symbol}')"
