@@ -16,5 +16,8 @@ class CurrencyTests(unittest.TestCase):
         self.assertFalse(self.inr_currency == self.usd_currency)
         self.assertFalse(self.usd_currency == self.blr_currency)
 
+    def test_currency_string_representation(self) -> None:
+        self.assertEqual(str(self.blr_currency), 'BRL - Brazilian Real')
+
 if __name__ == '__main__':
     unittest.main()
