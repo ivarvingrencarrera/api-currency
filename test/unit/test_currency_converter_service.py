@@ -19,6 +19,11 @@ class CurrencyConverterServiceTests(unittest.TestCase):
         output = CurrencyConverterService.convert(self.exchange_rate, self.from_currency, self.to_currency, input_)
         self.assertEqual(output, expected_output)
 
+    @parameterized.expand([(-100), (0)])
+    def test_must_not_converter_the_amount_with_negative_or_zero_amount(self, input_: float) -> None:
+        with self.assertRaises(ValueError) as context:
+            CurrencyConverterService.convert(self.exchange_rate, self.from_currency, self.to_currency, input_)
+        self.assertEqual('Amount must be greater than zero', str(context.exception))
 
 if __name__ == '__main__':
     unittest.main()
