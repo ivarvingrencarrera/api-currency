@@ -20,12 +20,13 @@ class CurrencyTests(unittest.TestCase):
         self.assertEqual(str(self.blr_currency), 'BRL - Brazilian Real')
 
     def test_currency_internal_representation(self) -> None:
+        print(repr(self.usd_currency))
         self.assertEqual(
-            repr(self.usd_currency), "Currency(id='4', alphabetic_code='USD', numeric_code=840, name='US Dollar', symbol='$')"
+            repr(self.usd_currency), "Currency(id=4, alphabetic_code='USD', numeric_code=840, name='US Dollar', symbol='$')" # noqa E501
         )
 
     def test_get_value(self) -> None:
-	    self.assertEqual(self.blr_currency.alphabetic_code, 'BRL')
+        self.assertEqual(self.blr_currency.alphabetic_code, 'BRL')
 
 
 if __name__ == '__main__':
