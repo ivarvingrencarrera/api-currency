@@ -7,4 +7,7 @@ class Currency:
         self.symbol = symbol
 
     def __eq__(self, other: object) -> bool:
-	    return self.alphabetic_code == other.alphabetic_code if isinstance(other, Currency) else False
+        return self.alphabetic_code == other.alphabetic_code if isinstance(other, Currency) else False
+
+    def __str__(self) -> str:
+        return f'{self.alphabetic_code} - {self.name}'
