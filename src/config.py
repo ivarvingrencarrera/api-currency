@@ -6,10 +6,7 @@ load_dotenv()
 
 ENV: str = os.getenv('ENV', 'production').lower()
 if ENV not in ('production', 'development', 'testing'):
-    raise ValueError(
-        f'ENV={ENV} is not valid. '
-        "It should be 'production', 'development' or 'testing'"
-    )
+    raise ValueError(f'ENV={ENV} is not valid. ' "It should be 'production', 'development' or 'testing'")
 DEBUG: bool = ENV != 'production'
 TESTING: bool = ENV == 'testing'
 
