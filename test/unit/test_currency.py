@@ -24,6 +24,9 @@ class CurrencyTests(unittest.TestCase):
             repr(self.usd_currency), "Currency(id='4', alphabetic_code='USD', numeric_code=840, name='US Dollar', symbol='$')"
         )
 
+    def test_get_value(self) -> None:
+	    self.assertEqual(self.blr_currency.alphabetic_code, 'BRL')
+
 
 if __name__ == '__main__':
     unittest.main()
