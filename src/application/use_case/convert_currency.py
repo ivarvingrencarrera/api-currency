@@ -32,10 +32,13 @@ class ConvertCurrency:
     def execute(self, input_: Input) -> Output:
         from_currency: Currency = self.currency_repository.get_currency_by_code(input_.from_currency)
         to_currency: Currency = self.currency_repository.get_currency_by_code(input_.to_currency)
-        exchange_rate: ExchangeRate = self.exchange_rate_repository.get_rate(
-            from_currency.id, to_currency.id, input_.date,
-        )
-        amount_converted = CurrencyConverterService.convert(exchange_rate, input_.amount)
+        if from_currency == to_currency:
+            amount_converted = input_.amount
+        else:
+            exchange_rate: ExchangeRate = self.exchange_rate_repository.get_rate(
+                from_currency.id, to_currency.id, input_.date,
+            )
+            amount_converted = CurrencyConverterService.convert(exchange_rate, input_.amount)
         formatted_amount = CurrencyConverterService.format_currency(amount_converted, to_currency)
         return Output(
             amount=amount_converted,
