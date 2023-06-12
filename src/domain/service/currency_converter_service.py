@@ -1,17 +1,15 @@
-from abc import ABC, abstractmethod
-
 from src.domain.entity.currency import Currency
 from src.domain.entity.exchange_rate import ExchangeRate
 
 
-class CurrencyConverterService(ABC):
-    @abstractmethod
+class CurrencyConverterService:
+    @staticmethod
     def convert(exchange_rate: ExchangeRate, amount: float) -> float:
         if amount <= 0:
             raise ValueError('Amount must be greater than zero')
         return round(amount / exchange_rate.rate, 2)
 
-    @abstractmethod
+    @staticmethod
     def format_currency(amount: float, currency: Currency) -> str:
         integer_value, decimal_value = divmod(amount, 1)
         integer_formatted = f'{integer_value:,.0f}'.replace(',', '.')
