@@ -19,5 +19,11 @@ class CurrencyTests(unittest.TestCase):
     def test_currency_string_representation(self) -> None:
         self.assertEqual(str(self.blr_currency), 'BRL - Brazilian Real')
 
+    def test_currency_internal_representation(self) -> None:
+        self.assertEqual(
+            repr(self.usd_currency), "Currency(id='4', alphabetic_code='USD', numeric_code=840, name='US Dollar', symbol='$')"
+        )
+
+
 if __name__ == '__main__':
     unittest.main()
