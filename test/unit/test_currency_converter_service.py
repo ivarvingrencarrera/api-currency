@@ -39,7 +39,7 @@ class CurrencyConverterServiceTests(unittest.TestCase):
             (2000000.00, Currency(3, 'INR', 356, 'Indian Rupee', '₹'), '₹2.000.000,00'),
         ]
     )
-    def test_must_format_the_amount(self, amount, currency, expected_output) -> None:
+    def test_must_format_the_amount(self, amount: float, currency: Currency, expected_output: str) -> None:
         output = CurrencyConverterService.format_currency(amount, currency)
         self.assertEqual(output, expected_output)
 
