@@ -147,17 +147,3 @@ def test_must_not_convert_currency_brl_to_usd_with_priceless_amount(
     with pytest.raises(ValueError) as context:
         currency_convert.execute(input_)
     assert 'Amount must be greater than zero' in str(context.value)
-
-def test_must_not_convert_currency_brl_to_usd_with_priceless_amount(
-    currency_repository: CurrencyRepository, exchange_rate_repository: ExchangeRateRepository
-) -> None:
-    input_ = Input(
-        from_currency='BRL',
-        to_currency='USD',
-        amount=0,
-        date=datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-    )
-    currency_convert = ConvertCurrency(currency_repository, exchange_rate_repository)
-    with pytest.raises(ValueError) as context:
-        currency_convert.execute(input_)
-    assert 'Amount must be greater than zero' in str(context.value)

@@ -36,7 +36,7 @@ class ConvertCurrency:
             amount_converted = input_.amount
         else:
             exchange_rate: ExchangeRate = self.exchange_rate_repository.get_rate(
-                from_currency.id, to_currency.id, input_.date,
+                from_currency.id, to_currency.id, input_.date
             )
             amount_converted = CurrencyConverterService.convert(exchange_rate, input_.amount)
         formatted_amount = CurrencyConverterService.format_currency(amount_converted, to_currency)
