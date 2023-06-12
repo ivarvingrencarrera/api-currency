@@ -55,3 +55,19 @@ def test_must_convert_currency_brl_to_usd(
     output = currency_convert.execute(input_)
     output_expected = Output(amount=98.23, currency_symbol='$', formatted_amount='$98,23')
     assert output == output_expected
+
+
+def test_must_convert_currency_brl_to_eur(
+    currency_repository: CurrencyRepository, exchange_rate_repository: ExchangeRateRepository
+) -> None:
+    input_ = Input(
+        from_currency='BRL',
+        to_currency='EUR',
+        amount=529.99,
+        date=datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+    )
+    currency_convert = ConvertCurrency(currency_repository, exchange_rate_repository)
+    output: Output = currency_convert.execute(input_)
+    assert output.currency_symbol == '€'
+    assert output.formatted_amount == '€83,26'
+    assert output.amount == 83.26
