@@ -87,3 +87,18 @@ def test_must_convert_currency_brl_to_inr(
     assert output.currency_symbol == '₹'
     assert output.formatted_amount == '₹7.318,93'
     assert output.amount == 7318.93
+
+
+def test_must_convert_currency_brl_to_brl(
+    currency_repository: CurrencyRepository, exchange_rate_repository: ExchangeRateRepository
+) -> None:
+    input_ = Input(
+        from_currency='BRL',
+        to_currency='BRL',
+        amount=529.99,
+        date=datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+    )
+    currency_convert = ConvertCurrency(currency_repository, exchange_rate_repository)
+    output = currency_convert.execute(input_)
+    output_expected = Output(amount=529.99, currency_symbol='R$', formatted_amount='R$529,99')
+    assert output == output_expected
