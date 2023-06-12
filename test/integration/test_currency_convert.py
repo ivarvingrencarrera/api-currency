@@ -102,3 +102,18 @@ def test_must_convert_currency_brl_to_brl(
     output = currency_convert.execute(input_)
     output_expected = Output(amount=529.99, currency_symbol='R$', formatted_amount='R$529,99')
     assert output == output_expected
+
+
+def test_must_not_convert_currency_brl_to_yen(
+    currency_repository: CurrencyRepository, exchange_rate_repository: ExchangeRateRepository
+) -> None:
+    input_ = Input(
+        from_currency='BRL',
+        to_currency='YEN',
+        amount=529.99,
+        date=datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+    )
+    currency_convert = ConvertCurrency(currency_repository, exchange_rate_repository)
+    with pytest.raises(ValueError) as context:
+        currency_convert.execute(input_)
+    assert 'Currency with code YEN not found' in str(context.value)
