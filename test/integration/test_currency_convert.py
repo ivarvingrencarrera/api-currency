@@ -104,6 +104,7 @@ async def test_must_not_convert_currency_brl_to_usd_with_priceless_amount() -> N
         await currency_convert.execute(input_)
     assert 'Amount must be greater than zero' in str(context.value)
 
+
 async def test_must_not_convert_currency_brl_to_usd_when_not_exist() -> None:
     input_ = Input(
         from_currency='BRL',
