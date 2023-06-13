@@ -5,12 +5,12 @@ from typing import Any
 class Connection(ABC):
     @abstractmethod
     async def disconnect(self) -> None:
-        pass
+        pass   # pragma: no cover
 
     @abstractmethod
     async def insert(self, query: str) -> None:
-        pass
+        pass   # pragma: no cover
 
     @abstractmethod
     async def select(self, query: str, *params: Any) -> list:
-        pass
+        pass   # pragma: no cover
