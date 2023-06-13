@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
 from src.application.repository.currency_repository import CurrencyRepository
@@ -29,14 +31,15 @@ class ConvertCurrency:
         self.currency_repository = currency_repository
         self.exchange_rate_repository = exchange_rate_repository
 
-    def execute(self, input_: Input) -> Output:
-        from_currency: Currency = self.currency_repository.get_currency_by_code(input_.from_currency)
-        to_currency: Currency = self.currency_repository.get_currency_by_code(input_.to_currency)
+    async def execute(self, input_: Input) -> Output:
+        from_currency: Currency = await self.currency_repository.find_by_code(input_.from_currency)
+        to_currency: Currency = await self.currency_repository.find_by_code(input_.to_currency)
+        input_date = datetime.strptime(input_.date, '%Y-%m-%d %H:%M:%S')
         if from_currency == to_currency:
             amount_converted = input_.amount
         else:
-            exchange_rate: ExchangeRate = self.exchange_rate_repository.get_rate(
-                from_currency.id, to_currency.id, input_.date
+            exchange_rate: ExchangeRate = await self.exchange_rate_repository.find(
+                from_currency.id, to_currency.id, input_date
             )
             amount_converted = CurrencyConverterService.convert(exchange_rate, input_.amount)
         formatted_amount = CurrencyConverterService.format_currency(amount_converted, to_currency)
