@@ -103,3 +103,15 @@ async def test_must_not_convert_currency_brl_to_usd_with_priceless_amount() -> N
     with pytest.raises(ValueError) as context:
         await currency_convert.execute(input_)
     assert 'Amount must be greater than zero' in str(context.value)
+
+async def test_must_not_convert_currency_brl_to_usd_when_not_exist() -> None:
+    input_ = Input(
+        from_currency='BRL',
+        to_currency='USD',
+        amount=0,
+        date='2023-06-09 00:00:00',
+    )
+    currency_convert = ConvertCurrency(currency_repository, exchange_rate_repository)
+    with pytest.raises(ValueError) as context:
+        await currency_convert.execute(input_)
+    assert 'No exchange rate found for the given currencies.' in str(context.value)
