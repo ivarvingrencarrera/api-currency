@@ -2,9 +2,8 @@
 name = "currency-converter"
 version = "0.1.0"
 description = ""
-authors = ["Ivar Carrera <ivar.carrera@outlook.com>"]
+authors = ["Ivar Carrera <ivar.carrera@gmail.com>"]
 readme = "README.md"
-packages = [{include = "currency_converter"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
