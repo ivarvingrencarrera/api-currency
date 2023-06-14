@@ -6,5 +6,5 @@ from src.domain.entity.exchange_rate import ExchangeRate
 
 class ExchangeRateRepository:
     @abstractmethod
-    async def find(self, from_currency_id: int, to_currency_id: int, date: datetime) -> ExchangeRate:
+    async def find(self, currency_from_id: int, currency_to_id: int, date: datetime) -> ExchangeRate:
         pass   # pragma: no cover
