@@ -15,6 +15,7 @@ orjson = "^3.9.0"
 python-dotenv = "^1.0.0"
 asyncpg = "^0.27.0"
 uvloop = "^0.17.0"
+uvicorn = "^0.22.0"
 
 
 [tool.poetry.group.test.dependencies]
@@ -67,7 +68,7 @@ select = [
     "UP",
     "W",
 ]
-ignore = ["B008"]
+ignore = ["B008", "E402"]
 target-version = "py311"
 
 [tool.ruff.pylint]
