@@ -2,12 +2,12 @@ from datetime import date, datetime
 
 
 class ExchangeRate:
-    def __init__(self, id: int, from_currency_id: int, to_currency_id: int, date: datetime, rate: float):
+    def __init__(self, id: int, currency_from_id: int, currency_to_id: int, date: datetime, rate: float):
         self.validate_rate(rate)
         self.validate_date(date)
         self.id = id
-        self.from_currency = from_currency_id
-        self.to_currency = to_currency_id
+        self.currency_from = currency_from_id
+        self.currency_to = currency_to_id
         self.date = date
         self.rate = rate
 
