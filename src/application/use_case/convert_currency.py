@@ -10,16 +10,16 @@ from src.domain.service.currency_converter_service import CurrencyConverterServi
 
 
 class Input(BaseModel):
-    from_currency: str
-    to_currency: str
-    amount: float
-    date: str
+    currency_from: str
+    currency_to: str
+    date: datetime
+    value: float
 
 
 class Output(BaseModel):
-    amount: float
+    value: float
     currency_symbol: str
-    formatted_amount: str
+    formatted_value: str
 
 
 class ConvertCurrency:
@@ -32,19 +32,18 @@ class ConvertCurrency:
         self.exchange_rate_repository = exchange_rate_repository
 
     async def execute(self, input_: Input) -> Output:
-        from_currency: Currency = await self.currency_repository.find_by_code(input_.from_currency)
-        to_currency: Currency = await self.currency_repository.find_by_code(input_.to_currency)
-        input_date = datetime.strptime(input_.date, '%Y-%m-%d %H:%M:%S')
-        if from_currency == to_currency:
-            amount_converted = input_.amount
+        currency_from: Currency = await self.currency_repository.find_by_code(input_.currency_from)
+        currency_to: Currency = await self.currency_repository.find_by_code(input_.currency_to)
+        if currency_from == currency_to:
+            value_converted = input_.value
         else:
             exchange_rate: ExchangeRate = await self.exchange_rate_repository.find(
-                from_currency.id, to_currency.id, input_date
+                currency_from.id, currency_to.id, input_.date
             )
-            amount_converted = CurrencyConverterService.convert(exchange_rate, input_.amount)
-        formatted_amount = CurrencyConverterService.format_currency(amount_converted, to_currency)
+            value_converted = CurrencyConverterService.convert(exchange_rate, input_.value)
+        formatted_value = CurrencyConverterService.format_currency(value_converted, currency_to)
         return Output(
-            amount=amount_converted,
-            currency_symbol=to_currency.symbol,
-            formatted_amount=formatted_amount,
+            value=value_converted,
+            currency_symbol=currency_to.symbol,
+            formatted_value=formatted_value,
         )
