@@ -10,22 +10,22 @@ from src.domain.service.currency_converter_service import CurrencyConverterServi
 
 class CurrencyConverterServiceTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.from_currency = Currency(1, 'BRL', 986, 'Brazilian Real', 'R$')
-        self.to_currency = Currency(2, 'EUR', 978, 'Euro', '€')
+        self.currency_from = Currency(1, 'BRL', 986, 'Brazilian Real', 'R$')
+        self.currency_to = Currency(2, 'EUR', 978, 'Euro', '€')
         self.exchange_rate = ExchangeRate(
-            5687, self.from_currency.id, self.to_currency.id, datetime.now(), 4.76
+            5687, self.currency_from.id, self.currency_to.id, datetime.now(), 4.76
         )
 
     @parameterized.expand([(100, 21.01), (200, 42.02)])
-    def test_must_converter_the_amount(self, input_: float, expected_output: float) -> None:
+    def test_must_converter_the_value(self, input_: float, expected_output: float) -> None:
         output = CurrencyConverterService.convert(self.exchange_rate, input_)
         self.assertEqual(output, expected_output)
 
     @parameterized.expand([(-100), (0)])
-    def test_must_not_converter_the_amount_with_negative_or_zero_amount(self, input_: float) -> None:
+    def test_must_not_converter_the_value_with_negative_or_zero_value(self, input_: float) -> None:
         with self.assertRaises(ValueError) as context:
             CurrencyConverterService.convert(self.exchange_rate, input_)
-        self.assertEqual('Amount must be greater than zero', str(context.exception))
+        self.assertEqual('value must be greater than zero', str(context.exception))
 
     @parameterized.expand(
         [
@@ -39,8 +39,8 @@ class CurrencyConverterServiceTests(unittest.TestCase):
             (2000000.00, Currency(3, 'INR', 356, 'Indian Rupee', '₹'), '₹2.000.000,00'),
         ]
     )
-    def test_must_format_the_amount(self, amount: float, currency: Currency, expected_output: str) -> None:
-        output = CurrencyConverterService.format_currency(amount, currency)
+    def test_must_format_the_value(self, value: float, currency: Currency, expected_output: str) -> None:
+        output = CurrencyConverterService.format_currency(value, currency)
         self.assertEqual(output, expected_output)
 
 
