@@ -30,5 +30,10 @@ run:
 	@ docker-compose up -d
 	@ python src/main_api.py
 
+run_dev:
+	@docker-compose up database; \
+	trap 'docker-compose down' INT;
+
+
 psql:
 	@ docker compose exec -it postgres bash -c "psql -U root -d root"
