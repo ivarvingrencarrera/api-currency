@@ -33,10 +33,6 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --with test --no-interaction --no-ansi -vvv
       -
-        name: Build
-        run: python src/main_api.py
-
-      -
         name: Build database
         run: poetry run make run_dev
       -
