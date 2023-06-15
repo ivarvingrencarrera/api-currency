@@ -3,7 +3,6 @@ from collections.abc import Callable
 import uvicorn
 import uvloop
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.encoders import jsonable_encoder  # noqa: F401
 from fastapi.responses import ORJSONResponse
 from fastapi.routing import APIRouter
 
@@ -18,7 +17,9 @@ class FastAPIAdapter(HttpServer):
     def on(self, method: str, url: str, callback: Callable) -> None:
         async def route_handler(request: Request) -> dict:
             try:
-                return await callback(request.path_params, await request.json())
+                params = request.path_params
+                body = {} if request.method == 'GET' else await request.json()
+                return await callback(params, body)
             except ValueError as e:
                 raise HTTPException(status_code=422, detail=str(e)) from e
 
