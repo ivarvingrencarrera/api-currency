@@ -68,7 +68,7 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --with lint --no-interaction --no-ansi -vvv
       -
-        name: Run tests
+        name: Run linting
         run: poetry run make linting
 
 #   build:
