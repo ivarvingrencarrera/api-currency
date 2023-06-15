@@ -9,7 +9,7 @@ class CurrencyRepositoryDatabase(CurrencyRepository):
 
     async def find_by_code(self, code: str) -> Currency:
         currency_query: str = 'SELECT * FROM converter.currency WHERE alphabetic_code = $1;'
-        currency_data: list = await self.connection.select(currency_query, code)
+        currency_data: list = await self.connection.select(currency_query, code.upper())
         if not currency_data:
             raise ValueError(f'Currency with code {code} not found')
         currency = currency_data[0]
