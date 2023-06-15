@@ -10,8 +10,8 @@ from src.infrastructure.api.http_server import HttpServer
 
 
 class FastAPIAdapter(HttpServer):
-    def __init__(self) -> None:
-        self.app = FastAPI(title='API Currency', default_response_class=ORJSONResponse)
+    def __init__(self, debug: bool) -> None:
+        self.app = FastAPI(title='API Currency', debug=debug, default_response_class=ORJSONResponse)
 
     def on(self, method: str, url: str, callback: Callable) -> None:
         async def route_handler(request: Request) -> Any:
