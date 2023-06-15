@@ -28,6 +28,7 @@ install_hooks:
 
 run:
 	@ docker-compose up -d
+	@ python src/main_api.py
 
 psql:
 	@ docker compose exec -it postgres bash -c "psql -U root -d root"
