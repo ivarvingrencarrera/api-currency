@@ -30,7 +30,7 @@ run:
 	@python src/main_api.py
 
 run_dev:
-	@docker-compose up database; \
+	@docker-compose up -d database; \
 	trap 'docker-compose down' INT;
 
 
