@@ -27,8 +27,7 @@ install_hooks:
 	@ scripts/install_hooks.sh
 
 run:
-	@ docker-compose up -d
-	@ python src/main_api.py
+	@python src/main_api.py
 
 run_dev:
 	@docker-compose up database; \
