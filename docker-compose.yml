@@ -2,14 +2,27 @@ version: '3.9'
 
 services:
 
-  database:
-    container_name: database
-    image: postgres:alpine
-    ports:
-        - "${DB_PORT}:5432"
-    environment:
-        POSTGRES_DB: $DB_NAME
-        POSTGRES_USER: $DB_USER
-        POSTGRES_PASSWORD: $DB_PASSWORD
-    volumes:
-        - ./test/database.sql:/docker-entrypoint-initdb.d/create.sql
+    database:
+        container_name: database
+        image: postgres:alpine
+        ports:
+            - "${DB_PORT}:5432"
+        environment:
+            POSTGRES_DB: $DB_NAME
+            POSTGRES_USER: $DB_USER
+            POSTGRES_PASSWORD: $DB_PASSWORD
+        volumes:
+            - ./test/database.sql:/docker-entrypoint-initdb.d/create.sql
+
+    app:
+        container_name: app
+        image: currency_converter
+        ports:
+            - "5000:5000"
+        depends_on:
+            - database
+        env_file:
+            - .env
+        environment:
+            BD_HOST: database
+            ENV: ${ENV:-production}
