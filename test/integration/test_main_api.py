@@ -76,3 +76,13 @@ async def test_must_not_convert_currency_brl_to_usd_when_data_not_exist(client: 
     response = await client.post(url, json=input_)
     output = response.json()
     assert output['detail'] == 'No exchange rate found for the given currencies.'
+
+
+async def test_get_currency_brl(client: AsyncClient) -> None:
+    currency = 'BRL'
+    url = f'/currencies/{currency}'
+    response = await client.get(url)
+    output = response.json()
+    assert output['code'] == 'BRL'
+    assert output['name'] == 'Brazilian Real'
+    assert output['symbol'] == 'R$'
