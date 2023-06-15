@@ -18,7 +18,10 @@ formating:
 	blue .
 
 testing:
-	pytest --cov-report term-missing --cov-report html --cov-branch --cov src/
+	docker compose up -d;
+	pytest -x \
+			--cov-report=term-missing --cov-report=html --cov-branch \
+			--cov src/
 
 testing_only:
 	pytest -s -x -vv
