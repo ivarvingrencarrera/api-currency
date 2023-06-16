@@ -39,9 +39,6 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --with test --no-interaction --no-ansi -vvv
       -
-        name: Build database
-        run: poetry run make run_dev
-      -
         name: Run tests
         run: poetry run make testing
   
