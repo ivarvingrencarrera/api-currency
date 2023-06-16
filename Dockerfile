@@ -1,42 +1,35 @@
-#
-# Base image
-#
+FROM python:3.11-slim as builder
+LABEL maintainer="Ivar Vingren Carrera <ivar.carrera@gmail.com>"
 
-FROM python:3.11-buster AS base
-WORKDIR /app
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt-get install -y --no-install-recommends build-essential libpq-dev curl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-RUN apt-get update -y \
-    && apt-get upgrade -y \
-    && apt-get install -y make \
-    && rm -rf /var/lib/apt/lists/*
+RUN python -m venv /venv
 
-#
-# Development image
-#
-
-FROM base AS development 
+ENV POETRY_VERSION=1.4.2
 ENV POETRY_HOME=/opt/poetry
-ENV PATH="$POETRY_HOME/bin:$PATH"
-RUN apt-get install -y curl \
-    && curl -sSL https://install.python-poetry.org | python - \
-    && rm -rf /var/lib/apt/lists/*
-COPY pyproject.toml poetry.lock* ./
-RUN poetry config virtualenvs.in-project true \
-    && poetry install --without doc --no-interaction --no-ansi -vvv \
-    && poetry export --only main -f requirements.txt > requirements.txt
-COPY src /app/src 
-COPY test /app/test
-COPY Makefile /app
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+ENV POETRY_VERSION=1.4.2
+RUN curl https://install.python-poetry.org | python -
+
+WORKDIR /app
+COPY pyproject.toml poetry.lock ./
+RUN . /venv/bin/activate; \
+    $POETRY_HOME/bin/poetry install --only main --no-interaction
+
+# ---------------------------------------------------------
+
+FROM python:3.11-slim as final
+ENV PATH=/venv/bin:${PATH}
+
+WORKDIR /app
+USER nobody
+COPY --chown=nobody:nogroup src/ ./src
+
 EXPOSE 5000
 
-
-#
-# Production image
-#
-
-FROM base AS production
-COPY src /app/src
-COPY --from=development /app/requirements.txt ./
-RUN pip install --no-cache-dir -r /app/requirements.txt \
-    && rm /app/requirements.txt
-EXPOSE 5000
+ENTRYPOINT [ "python", "src/main_api.py"]
