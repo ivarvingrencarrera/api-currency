@@ -39,6 +39,9 @@ run:
 		@python src/main_api.py
 
 
+build:
+		docker build -t currency_converter .
+
 
 psql:
 		@docker compose exec -it postgres bash -c "psql -U root -d root"
