@@ -8,5 +8,5 @@ class HttpServer(ABC):
         pass    # pragma: no cover
 
     @abstractmethod
-    def listen(self, port: int) -> None:
+    def listen(self, port: int, host: str) -> None:
         pass    # pragma: no cover

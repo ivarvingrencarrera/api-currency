@@ -22,4 +22,4 @@ http_server = FastAPIAdapter(config.DEBUG)
 RouterController(http_server, convert_currency, get_currency)
 app = http_server.app
 if not config.TESTING:
-    http_server.listen(5000)
+    http_server.listen(5000, '127.0.0.1')
