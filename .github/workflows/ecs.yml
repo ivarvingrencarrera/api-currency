@@ -37,6 +37,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: task-definition.json
-          service: Task-API-Currency
+          service: Service-API-Currency
           cluster: Cluster-API-Currency
           wait-for-service-stability: true    
