@@ -11,7 +11,7 @@ class ExchangeRateRepositoryDatabase(ExchangeRateRepository):
 
     async def find(self, currency_from_id: int, currency_to_id: int, date: datetime) -> ExchangeRate:
         exchange_rate_query: str = ' \
-            SELECT * FROM converter.exchange_rate \
+            SELECT * FROM currency_exchange_rates.exchange_rate \
             WHERE currency_from_id = $1 AND currency_to_id = $2 AND DATE(date_rate) = $3;'
         exchange_rate_data: list = await self.connection.select(
             exchange_rate_query, currency_from_id, currency_to_id, date
