@@ -26,4 +26,4 @@ class FastAPIAdapter(HttpServer):
 
     def listen(self, port: int) -> None:
         uvloop.install()
-        uvicorn.run(self.app, host='127.0.0.1', port=port, loop='uvloop')
+        uvicorn.run(self.app, host='0.0.0.0', port=port, loop='uvloop')
