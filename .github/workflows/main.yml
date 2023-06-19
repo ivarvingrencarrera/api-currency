@@ -15,4 +15,9 @@ jobs:
         needs: [test, lint]
         uses: ./.github/workflows/docker.yml
         secrets: inherit
+
+    deploy:
+        needs: [build]
+        uses: ./.github/workflows/ecs.yml
+        secrets: inherit
         
