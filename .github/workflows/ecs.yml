@@ -1,0 +1,42 @@
+name: Continuous Delivery
+
+on:
+  workflow_call:
+
+jobs:
+  ECS:
+    runs-on: ubuntu-latest
+    steps:
+      -  
+        name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: sa-east-1
+      -          
+        name: Task definition file
+        run: aws ecs describe-task-definition --task-definition Task-API-Currency --query taskDefinition > task-definition.json
+      -
+        name: Render Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: API-Currency
+          image: ivarvingrencarrera/api-currency:main
+          environment-variables: |
+            HOST=${{ secrets.DB_HOST }}
+            USER=${{ secrets.DB_USER }}
+            PASSWORD=${{ secrets.DB_PASSWORD }}
+            DBNAME=${{ secrets.DB_NAME }}
+            DBPORT=${{ secrets.DB_PORT }}
+            PORT=5000
+      -    
+        name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          service: Task-API-Currency
+          cluster: API-Currency
+          wait-for-service-stability: true    
