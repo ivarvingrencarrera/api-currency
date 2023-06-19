@@ -15,7 +15,7 @@ services:
             - ./test/database.sql:/docker-entrypoint-initdb.d/create.sql
 
     app:
-        container_name: app
+        container_name: api-currency
         image: api-currency
         ports:
             - "5000:5000"
