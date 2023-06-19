@@ -13,11 +13,11 @@ testing: check_env
 
 linting:
 		@echo
-		isort . 
+		isort .
 		@echo
 		ruff .
 		@echo
-		blue --check --diff --color . 
+		blue --check --diff --color .
 		@echo
 		mypy . 
 		@echo
