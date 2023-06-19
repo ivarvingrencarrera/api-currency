@@ -34,3 +34,6 @@ class RouterController:
     async def get_currency_handler(self, params: dict, _: dict) -> GetCurrencyOutput:
         input_ = GetCurrencyInput(currency=params['currency'])
         return await self.get_currency.execute(input_)
+
+    async def get_test(self, _: dict, __: dict) -> set:
+        return {'Hello man!!!'}
