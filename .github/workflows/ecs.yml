@@ -24,7 +24,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: API-Currency
-          image: ivarvingrencarrera/api-currency:main
+          image: ivarvingrencarrera/api-currency:${{ github.run_number }}
           environment-variables: |
             HOST=${{ secrets.DB_HOST }}
             USER=${{ secrets.DB_USER }}
@@ -37,6 +37,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: task-definition.json
-          service: Task-API-Currency
-          cluster: API-Currency
-          wait-for-service-stability: true    
+          service: Service-API-Currency
+          cluster: Cluster-API-Currency
+          wait-for-service-stability: true  

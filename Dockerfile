@@ -10,7 +10,6 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 RUN python -m venv /venv
 
-ENV POETRY_VERSION=1.4.2
 ENV POETRY_HOME=/opt/poetry
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV POETRY_VERSION=1.4.2
@@ -24,6 +23,8 @@ RUN . /venv/bin/activate; \
 # ---------------------------------------------------------
 
 FROM python:3.11-slim as final
+
+COPY --from=builder /venv /venv
 ENV PATH=/venv/bin:${PATH}
 
 WORKDIR /app
