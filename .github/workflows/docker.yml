@@ -27,4 +27,4 @@ jobs:
               context: .
               file: ./Dockerfile
               push: true
-              tags: ${{ secrets.DOCKERHUB_USERNAME }}/currency_converter:${{github.run_number}}
+              tags: ${{ secrets.DOCKERHUB_USERNAME }}/api-currency:${{github.run_number}}
