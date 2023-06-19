@@ -38,5 +38,5 @@ jobs:
         with:
           task-definition: task-definition.json
           service: Task-API-Currency
-          cluster: API-Currency
+          cluster: Cluster-API-Currency
           wait-for-service-stability: true    
