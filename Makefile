@@ -6,7 +6,7 @@ run_dev: check_env
 		
 
 testing: check_env
-		docker compose up -d database;
+		docker compose up -d;
 		pytest --cov-report=term-missing --cov-report=html --cov-branch --cov src/;
 		docker compose down;
 
