@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "currency-converter"
+name = "api-currency"
 version = "0.1.0"
 description = ""
 authors = ["Ivar Carrera <ivar.carrera@gmail.com>"]

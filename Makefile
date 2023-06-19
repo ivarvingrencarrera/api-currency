@@ -39,7 +39,7 @@ run:
 
 
 build:
-		docker build -t currency_converter .
+		docker build -t api-currency .
 
 
 psql:

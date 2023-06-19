@@ -16,7 +16,7 @@ services:
 
     app:
         container_name: app
-        image: currency_converter
+        image: api-currency
         ports:
             - "5000:5000"
         depends_on:
