@@ -23,15 +23,7 @@ jobs:
             with:
                 virtualenvs-in-project: true
           - 
-            name: Load cached venv
-            id: cached-poetry-dependencies
-            uses: actions/cache@v3
-            with:
-                path: .venv
-                key: venv-${{ hashFiles('**/poetry.lock') }}
-          - 
             name: Install dependencies
-            #if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
             run: poetry install --with lint --no-interaction --no-ansi -vvv
           -
             name: Run linting
