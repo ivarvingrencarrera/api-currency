@@ -12,7 +12,7 @@ jobs:
         uses: ./.github/workflows/lint.yml
     
     build:
-        #needs: [test, lint]
+        needs: [test, lint]
         uses: ./.github/workflows/docker.yml
         secrets: inherit
 
