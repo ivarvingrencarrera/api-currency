@@ -18,6 +18,9 @@ jobs:
         name: Task definition file
         run: aws ecs describe-task-definition --task-definition Task-API-Currency --query taskDefinition > task-definition.json
       -
+        name: Copy task definition file
+        run: cp task-definition.json task-definition.json.bak
+      -  
         name: Render Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
