@@ -23,7 +23,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: task-definition.json
-          container-name: API-Currency
+          container-name: Container-API-Currency
           image: ivarvingrencarrera/api-currency:${{ github.run_number }}
           environment-variables: |
             HOST=${{ secrets.DB_HOST }}
@@ -31,7 +31,7 @@ jobs:
             PASSWORD=${{ secrets.DB_PASSWORD }}
             DBNAME=${{ secrets.DB_NAME }}
             DBPORT=${{ secrets.DB_PORT }}
-            PORT=5000
+            PORT=${{ secrets.APP_PORT }}
       -    
         name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
