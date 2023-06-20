@@ -23,6 +23,12 @@ jobs:
             with:
                 virtualenvs-in-project: true
           - 
+            name: Limpar Cache
+            uses: actions/cache@v2
+            with:
+              path: .venv
+              key: ${{ runner.os }}-cache
+          - 
             name: Load cached venv
             id: cached-poetry-dependencies
             uses: actions/cache@v3
