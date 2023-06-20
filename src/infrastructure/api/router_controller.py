@@ -19,7 +19,7 @@ class RouterController:
 
         self.http_server.on('POST', '/currencies/converter', self.convert_currency_handler)
         self.http_server.on('GET', '/currencies/{currency}', self.get_currency_handler)
-        self.http_server.on('GET', '/', self.get_test)
+        self.http_server.on('GET', '/test', self.get_test)
 
     async def convert_currency_handler(self, _: dict, body: dict) -> ConvertCurrencyOutput:
         date = datetime.strptime(body['date'], '%Y-%m-%d')
